@@ -1,11 +1,7 @@
 package log
 
-import (
-	"go.uber.org/zap/zapcore"
-)
-
 type Options struct {
-	Level             zapcore.Level
+	Level             string
 	Development       bool
 	Format            string
 	DisableCaller     bool
@@ -20,7 +16,7 @@ type operation func(*Options)
 
 func InitOptions(ops ...operation) *Options {
 	opts := &Options{
-		Level:             zapcore.InfoLevel,
+		Level:             "info",
 		Development:       false,
 		Format:            "json",
 		DisableCaller:     false,
@@ -38,7 +34,7 @@ func InitOptions(ops ...operation) *Options {
 	return opts
 }
 
-func WithLevel(Level zapcore.Level) operation {
+func WithLevel(Level string) operation {
 	return func(o *Options) {
 		o.Level = Level
 	}

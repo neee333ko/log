@@ -13,7 +13,7 @@ func InitKlog(l *zap.Logger) {
 	defer klog.Flush()
 
 	klog.SetOutputBySeverity("INFO", &infoLogger{logger: l})
-	klog.SetOutputBySeverity("WARN", &warnLogger{logger: l})
+	klog.SetOutputBySeverity("WARNING", &warnLogger{logger: l})
 	klog.SetOutputBySeverity("ERROR", &errorLogger{logger: l})
 	klog.SetOutputBySeverity("FATAL", &fatalLogger{logger: l})
 
