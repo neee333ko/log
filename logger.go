@@ -36,7 +36,7 @@ func New(opts *Options) *Logger {
 		opts = InitOptions()
 	}
 
-	var zapLevel zapcore.Level
+	var zapLevel Level
 	if err := zapLevel.UnmarshalText([]byte(opts.Level)); err != nil {
 		zapLevel = zapcore.InfoLevel
 	}
@@ -401,7 +401,13 @@ func (l *Logger) Fatalw(msg string, keysAndValues ...interface{}) {
 	l.logger.Sugar().Fatalw(msg, keysAndValues...)
 }
 
+func L(ctx context.Context) *Logger {
+	return std.L(ctx)
+}
+
 func (l *Logger) L(ctx context.Context) *Logger {
+
+	l = l.clone()
 
 	if requestID := ctx.Value(KeyRequestID); requestID != nil {
 		l = l.WithValues(KeyRequestID, requestID)
@@ -416,4 +422,10 @@ func (l *Logger) L(ctx context.Context) *Logger {
 	}
 
 	return l
+}
+
+func (l *Logger) clone() *Logger {
+	copy := *l
+
+	return &copy
 }
