@@ -4,6 +4,8 @@ import (
 	"context"
 	"sync"
 	"testing"
+
+	"github.com/fatih/color"
 )
 
 func Test_V(t *testing.T) {
@@ -53,4 +55,25 @@ func Test_Context(t *testing.T) {
 	logger2.Info("msg with context from L")
 
 	wg.Wait()
+}
+
+func Test_Std(t *testing.T) {
+	std.Error(color.RedString("Error: Invalid input"))
+
+	Init(&Options{
+		Level:             "info",
+		Development:       false,
+		Format:            "console",
+		DisableCaller:     false,
+		DisableStacktrace: false,
+		EnableColor:       true,
+		Name:              "Logger",
+		OutputPaths:       []string{"stdout"},
+		ErrorOutputPaths:  []string{"stderr"},
+	})
+
+	std.Info("\nINFO: This is an info")
+	std.Error("Error: Invalid input")
+	std.Warn("Warning: missing config file")
+	// std.Panic("Panic: invalid input")
 }
