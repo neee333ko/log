@@ -1,7 +1,7 @@
 package log
 
 import (
-	"github.com/marmotedu/component-base/pkg/validation/field"
+	"github.com/neee333ko/component-base/pkg/validation/field"
 	"github.com/spf13/pflag"
 )
 
